@@ -1,12 +1,24 @@
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
+
+
+class ProductManager(models.Manager):
+    def in_stock(self):
+        return self.queryset().filter(stock__gt=0)
+    def sort_decay(self):
+        return self.queryset().order_by('-field', 'price')
+    def sort_increasing(self):
+        return self.queryset().order_by('field', 'price')
+
 class Product(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     price = models.FloatField()
     stock = models.IntegerField()
     attributes = models.ManyToManyField('Attribute')
+
+    objects = ProductManager()
 
 class ProductImage(models.Model):
     image = models.ImageField()
