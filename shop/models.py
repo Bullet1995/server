@@ -12,11 +12,11 @@ class ProductManager(models.Manager):
         return self.get_queryset().order_by('price')
 
 class Product(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    price = models.FloatField()
-    stock = models.IntegerField()
-    attributes = models.ManyToManyField('Attribute')
+    title = models.CharField(max_length=255, verbose_name='Наименование')
+    description = models.TextField(verbose_name='Описание')
+    price = models.FloatField(verbose_name='Цена')
+    stock = models.IntegerField(verbose_name='Остаток')
+    attributes = models.ManyToManyField('Attribute', verbose_name='Свойства')
 
     objects = ProductManager()
 
