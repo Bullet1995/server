@@ -26,7 +26,7 @@ class Product(models.Model):
         indexes = [models.Index(fields=['price'])]
 
 class ProductImage(models.Model):
-    image = models.ImageField()
+    image = models.ImageField(upload_to="products", verbose_name="Изображение")
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     class Meta:
