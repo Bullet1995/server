@@ -6,14 +6,22 @@ from django.contrib import messages
 from django.views import View
 
 from datetime import datetime
+
+from django.views.generic import ListView
+
 from shop.models import Product
 from shop.forms import CustomUserCreationForm, UserAuthForm
 
 
-def all_products(request: HttpRequest):
-    current_time = datetime.now()
-    products = Product.objects.values_list('title', flat=True)
-    return render(request, 'products.html', context={'current_time': current_time, 'products':products})
+class AllProductsView(ListView):
+    template_name = 'products.html'
+    model = Product
+    context_object_name = 'products'
+
+# def all_products(request: HttpRequest):
+#     current_time = datetime.now()
+#     products = Product.objects.values_list('title', flat=True)
+#     return render(request, 'products.html', context={'current_time': current_time, 'products':products})
 
 class LoginView(View):
     @staticmethod
