@@ -7,7 +7,7 @@ from django.views import View
 
 from datetime import datetime
 
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from shop.models import Product
 from shop.forms import CustomUserCreationForm, UserAuthForm
@@ -95,3 +95,8 @@ class RegistrationView(View):
 def logout_user(request: HttpRequest):
     logout(request)
     return redirect("all-products")
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'product_detail.html'
+    context_object_name = 'product'
