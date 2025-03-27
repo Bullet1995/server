@@ -11,9 +11,10 @@ from django.views.generic import ListView, DetailView
 
 from shop.models import Product
 from shop.forms import CustomUserCreationForm, UserAuthForm
+from shop.mixins import IsAuthenticatedMixin
 
 
-class AllProductsView(ListView):
+class AllProductsView(IsAuthenticatedMixin, ListView):
     template_name = 'products.html'
     model = Product
     context_object_name = 'products'
@@ -96,7 +97,7 @@ def logout_user(request: HttpRequest):
     logout(request)
     return redirect("all-products")
 
-class ProductDetailView(DetailView):
+class ProductDetailView(IsAuthenticatedMixin, DetailView):
     model = Product
     template_name = 'product_detail.html'
     context_object_name = 'product'
